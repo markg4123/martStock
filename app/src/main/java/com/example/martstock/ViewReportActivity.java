@@ -2,9 +2,9 @@ package com.example.martstock;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,9 +30,7 @@ public class ViewReportActivity extends AppCompatActivity {
     Button martButton, button;
     RecyclerView reportRcv;
     RecyclerView.Adapter reportAdapter;
-    RecyclerView.Adapter summaryAdapter;
     ArrayList<Report> reports = new ArrayList<>();
-    ArrayList<Summary> Summary = new ArrayList<>();
     int numberOfColumns;
 
     String value;
@@ -317,20 +315,9 @@ public class ViewReportActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.item1:
-
-                Summary.clear();
-                numberOfColumns =1;
-                reportRcv.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-                summaryAdapter = new SummaryAdapter(Summary);
-                reportRcv.setAdapter(summaryAdapter);
-
-                Summary aSummary = new Summary(new DecimalFormat("#.##").format(bullockAveragePrice),
-                        new DecimalFormat("#.##").format(heiferAveragePrice),
-                        new DecimalFormat("#.##").format(cowAveragePrice),
-                        new DecimalFormat("#.##").format(calfAveragePrice));
-                Summary.add(aSummary);
-
-
+                Intent i = new Intent(ViewReportActivity.this, SummaryActivity.class);
+                startActivity(i);
+                return true;
 
 
         }

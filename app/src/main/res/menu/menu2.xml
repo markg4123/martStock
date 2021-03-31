@@ -14,6 +14,10 @@
         android:title="View Mart Reports"
         app:showAsAction="never" />
     <item
+        android:id="@+id/item6"
+        android:title="Live Marts"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/item3"
         android:title="Scan Animal"
         app:showAsAction="never" />

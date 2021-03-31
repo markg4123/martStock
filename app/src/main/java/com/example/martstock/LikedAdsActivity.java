@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class LikedAdsActivity extends AppCompatActivity {
     RecyclerView likeAdsRCV;
@@ -67,6 +68,7 @@ public class LikedAdsActivity extends AppCompatActivity {
                     if (userId.equals(a.getId())) {
 
                         likedAds.add(a);
+                        Collections.reverse(likedAds);
                         adapter = new LikedAdsAdapter(likedAds,null);
                         likeAdsRCV.setAdapter(adapter);
                         adapter.notifyItemInserted(likedAds.size() - 1);

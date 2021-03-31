@@ -57,17 +57,17 @@ public class BuyingActivity extends AppCompatActivity {
         filterSpinner = findViewById(R.id.filterSpinner);
         filterSpinner2 = findViewById(R.id.filterSpinner2);
         final String[] filterList = {"All", "Cattle", "Sheep"};
-        final String[] martList={ "Abbeyfeale Mart","Ardee Mart","Athenry Mart","Balla Mart","Ballina Mart","Ballinasloe Mart","Ballinrobe Mart" +
-                "Ballbay Mart","Ballybofey & Stranorlar Mart","Ballyjamesduff Mart","Ballymahon Mart","Ballymeana Mart","Ballymote Mart","Ballyshannon Mart"+
-                "Baltinglass Mart","Birr Mart","Blesington Mart","Borris Mart","Cahir Mart","Cardonagh Mart","Carlow Mart"+
-                "Carnaross Mart","Carnew Mart","Carrick on Suir Mart","Cashel Mart","Carrigallen Mart","Castleblayney Mart","Castleisland Mart"+
-                "Castlerea Mart","Cavan Mart","Clifden Mart","Clogher Mart","Devlin Mart","Dingle Mart","Downpatrick Mart"+
-                "Dowra Mart","Drumshanbo Mart","Dungrarven Mart","Elphin Mart","Ennis Mart","Enniscorthy Mart","Fermoy Mart"+
-                "Gort Mart","Gortin Mart","Granard Mart","Headford Mart","Hilltown Mart","Iveragh Mart","Kanturk Mart"+
-                "Kenmare Mart","Kilcullen Mart","Kilkenny Mart","Kilmallock Mart","Kilera Mart","Kilrush Mart","Kingscourt Mart"+
-                "Lisahally Mart","Listowel Mart","Loughrea Mart","Maam Cross Mart","Manorhamilton Mart","Markethil Mart","Mid Kerry Mart"+
-                "Milford Mart","Mohill Mart","Mountbellew Mart","Mountrath Mart","Nenagh Mart","Newport Mart","Newross Mart"+
-                "Newtownstewart Mart","Omagh Mart","Raphoe Mart","Roscommon Mart","Roscrea Mart","Thurles Mart","Tuam Mart"+
+        final String[] martList={ "All","Abbeyfeale Mart","Ardee Mart","Athenry Mart","Balla Mart","Ballina Mart","Ballinasloe Mart","Ballinrobe Mart",
+                "Ballbay Mart","Ballybofey & Stranorlar Mart","Ballyjamesduff Mart","Ballymahon Mart","Ballymeana Mart","Ballymote Mart","Ballyshannon Mart",
+                "Baltinglass Mart","Birr Mart","Blesington Mart","Borris Mart","Cahir Mart","Cardonagh Mart","Carlow Mart",
+                "Carnaross Mart","Carnew Mart","Carrick on Suir Mart","Cashel Mart","Carrigallen Mart","Castleblayney Mart","Castleisland Mart",
+                "Castlerea Mart","Cavan Mart","Clifden Mart","Clogher Mart","Devlin Mart","Dingle Mart","Downpatrick Mart",
+                "Dowra Mart","Drumshanbo Mart","Dungrarven Mart","Elphin Mart","Ennis Mart","Enniscorthy Mart","Fermoy Mart",
+                "Gort Mart","Gortin Mart","Granard Mart","Headford Mart","Hilltown Mart","Iveragh Mart","Kanturk Mart",
+                "Kenmare Mart","Kilcullen Mart","Kilkenny Mart","Kilmallock Mart","Kilera Mart","Kilrush Mart","Kingscourt Mart",
+                "Lisahally Mart","Listowel Mart","Loughrea Mart","Maam Cross Mart","Manorhamilton Mart","Markethil Mart","Mid Kerry Mart",
+                "Milford Mart","Mohill Mart","Mountbellew Mart","Mountrath Mart","Nenagh Mart","Newport Mart","Newross Mart",
+                "Newtownstewart Mart","Omagh Mart","Raphoe Mart","Roscommon Mart","Roscrea Mart","Thurles Mart","Tuam Mart",
                 "Tullamore Mart","Tullow Mart"};
 
         filterSpinner.setAdapter(new ArrayAdapter<>(BuyingActivity.this, android.R.layout
@@ -76,14 +76,28 @@ public class BuyingActivity extends AppCompatActivity {
         filterSpinner2.setAdapter(new ArrayAdapter<>(BuyingActivity.this, android.R.layout
                 .simple_spinner_dropdown_item, martList));
 
-
-
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 result = filterSpinner.getSelectedItem().toString();
                 result2 = filterSpinner2.getSelectedItem().toString();
                 userRef =  FirebaseDatabase.getInstance().getReference("Ad");
+                userRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (final DataSnapshot s : snapshot.getChildren()) {
+                            final Ad a = s.getValue(Ad.class);
+                            if (result2.equalsIgnoreCase("All")){
+                                ads.add(a);
+                            }
+                        }
+                        }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 userRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -192,6 +206,7 @@ public class BuyingActivity extends AppCompatActivity {
 
 
                     ads.add(a);
+                    Collections.reverse(ads);
                     adapter = new MyAdapter(ads);
                     rcv.setAdapter(adapter);
                     adapter.notifyItemInserted(ads.size() - 1);
@@ -279,6 +294,10 @@ public class BuyingActivity extends AppCompatActivity {
             case R.id.item5:
                 Intent iv = new Intent(BuyingActivity.this, QRCode.class);
                 startActivity(iv);
+                return true;
+            case R.id.item6:
+                Intent v = new Intent(BuyingActivity.this, LiveMartsActivity.class);
+                startActivity(v);
                 return true;
 
 

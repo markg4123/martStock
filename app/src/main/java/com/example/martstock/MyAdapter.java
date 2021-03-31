@@ -40,7 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
     String title,age,breed,desc,date, mart, id,key;
     int price;
     ArrayList<LikedAds> likedAds = new ArrayList<LikedAds>();
-    DatabaseReference reference;
+    DatabaseReference reference, userRef, ref;
     FirebaseAuth mAuth;
 
 
@@ -77,9 +77,59 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
         uri = ad.getUrl();
         myUri = Uri.parse(uri);
 
+        userRef =  FirebaseDatabase.getInstance().getReference("Ad");
+        ref =  FirebaseDatabase.getInstance().getReference("LikedAd");
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (final DataSnapshot s : snapshot.getChildren()) {
+                    final Ad a = s.getValue(Ad.class);
+
+                    ref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (final DataSnapshot s : snapshot.getChildren()) {
+                                final LikedAds la = s.getValue(LikedAds.class);
+
+                                if(a.getId().equals(la.getId())) {
+                                    holder.likesText.setEnabled(false);
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
         Picasso.get().load(myUri).into(holder.image);
+
+        holder.messageUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Ad ad = ads.get(position);
+
+                String userid = ad.getId();
+
+                Intent i = new Intent(v.getContext(), ChatActivity.class);
+                i.putExtra("id", userid);
+                v.getContext().startActivity(i);
+            }
+        });
 
         holder.likesText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,10 +153,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
 
                 LikedAds likedAd = new LikedAds(title, price, mart, breed, age, desc, uri,date, id,key);
                 likedAds.add(likedAd);
-
-
-
-
 
 
 
@@ -147,7 +193,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView adTitleText, priceText, martText, breedText, ageText, descText;
         public ImageView image;
-        public Button likesText;
+        public Button likesText,messageUserButton;
 
 
         public ViewHolder(@NonNull final View itemView) {
@@ -161,6 +207,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
             descText = (TextView) itemView.findViewById(R.id.descText);
             image = (ImageView) itemView.findViewById(R.id.image);
             likesText = (Button) itemView.findViewById(R.id.likesText);
+            messageUserButton = (Button) itemView.findViewById(R.id.messageUserButton);
 
 
         }

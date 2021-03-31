@@ -1,7 +1,6 @@
 package com.example.martstock;
 
 public class Report {
-
     String weight, price, gender, breed, dob, date;
 
     public  Report(){
@@ -75,4 +74,5 @@ public class Report {
                 ", dob='" + dob + '\'' +
                 '}';
     }
+
 }

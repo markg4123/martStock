@@ -128,32 +128,46 @@
 
     </LinearLayout>
 
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/priceText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:background="#56FFFFFF"
+                android:text="Price"
+                android:textStyle="bold"
+                android:layout_marginStart="8dp"
+                android:textColor="#050505"
+                android:layout_marginLeft="8dp" />
+
+
+            <Button
+                android:id="@+id/likesText"
+                android:layout_width="38dp"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:text=""
+                android:drawableRight="@drawable/ic_baseline_thumb_up_24" />
+
+
+        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/priceText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_weight="1"
-            android:background="#56FFFFFF"
-            android:text="Price"
-            android:textStyle="bold"
-            android:layout_marginStart="8dp"
-            android:textColor="#050505"
-            android:layout_marginLeft="8dp" />
-
-
         <Button
-            android:id="@+id/likesText"
-            android:layout_width="38dp"
+            android:id="@+id/messageUserButton"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
-            android:text=""
-            android:drawableRight="@drawable/ic_baseline_thumb_up_24" />
+            android:text="Message this user" />
 
 
     </LinearLayout>

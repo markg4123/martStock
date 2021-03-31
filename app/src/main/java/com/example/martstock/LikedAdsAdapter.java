@@ -1,6 +1,5 @@
 package com.example.martstock;
 
-
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -45,8 +44,8 @@ public class LikedAdsAdapter extends RecyclerView.Adapter<LikedAdsAdapter.ViewHo
     Uri myUri;
     String uri;
     DatabaseReference fireDB;
-     long difference_In_Days;
-     String key, key1;
+    long difference_In_Days;
+    String key, key1;
 
 
     public LikedAdsAdapter(ArrayList<LikedAds> likedAds,ArrayList<Ad> ads ) {
