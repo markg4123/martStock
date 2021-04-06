@@ -18,6 +18,10 @@
         android:title="Live Marts"
         app:showAsAction="never" />
     <item
+        android:id="@+id/item7"
+        android:title="Messages"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/item3"
         android:title="Scan Animal"
         app:showAsAction="never" />
@@ -26,5 +30,6 @@
         android:id="@+id/item5"
         android:title="Generate QR Code"
         app:showAsAction="never" />
+
 
 </menu>

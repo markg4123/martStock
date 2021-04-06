@@ -123,10 +123,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
             public void onClick(View v) {
                 Ad ad = ads.get(position);
 
-                String userid = ad.getId();
+                String rec = ad.getId();
 
                 Intent i = new Intent(v.getContext(), ChatActivity.class);
-                i.putExtra("id", userid);
+                i.putExtra("id", rec);
                 v.getContext().startActivity(i);
             }
         });

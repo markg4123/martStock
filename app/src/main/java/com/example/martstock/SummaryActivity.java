@@ -66,37 +66,6 @@ public class SummaryActivity extends AppCompatActivity {
                         Prices price = new Prices(animalType.toUpperCase(), priceChange,pricePerKg);
                         prices.add(price);
 
-                        ArrayList<BarEntry> priceperkg = new ArrayList<>();
-
-                        if(tag.attr("href").equals("https://www.agriland.ie/factory-prices/young-bull-prices/")) {
-                             hefPrice = tag.getElementsByClass("price").last().text();
-                             pri = Float.valueOf(hefPrice.replace("€", "").replace(" Euro Per Kg", ""));
-                        }
-
-
-
-                        Float money = Float.valueOf(pricePerKg.replace("€", "").replace(" Euro Per Kg", ""));
-                        priceperkg.add(new BarEntry(Float.parseFloat(String.valueOf(pri)),0));
-                        priceperkg.add(new BarEntry(Float.parseFloat(String.valueOf(money)),1));
-                        priceperkg.add(new BarEntry(Float.parseFloat(String.valueOf(money)),2));
-                        priceperkg.add(new BarEntry(Float.parseFloat(String.valueOf(money)),3));
-
-                        ArrayList animalTypes = new ArrayList<>();
-
-                        animalTypes.add("Heifers");
-                        animalTypes.add("Steers");
-                        animalTypes.add("Dry/Fat Cows");
-                        animalTypes.add("Bulls");
-                        animalTypes.add("Young Bulls");
-
-                        BarDataSet barDataSet = new BarDataSet(priceperkg, "Cattle Price/Kg");
-//                        barChart.animateY(1500);
-                        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-                        BarData data = new BarData(animalTypes, barDataSet);
-                        barChart.setData(data);
-
-
                     }
                 }
 

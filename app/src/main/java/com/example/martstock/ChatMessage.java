@@ -1,7 +1,5 @@
 package com.example.martstock;
 
-import java.util.Date;
-
 public class ChatMessage {
     String messageSender, messageReciever, messageText;
 

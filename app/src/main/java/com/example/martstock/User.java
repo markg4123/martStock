@@ -1,7 +1,7 @@
 package com.example.martstock;
 
 public class User {
-    String name, email, username, password, id;
+    public static String name, email, username, password, id;
     User(){
 
     }

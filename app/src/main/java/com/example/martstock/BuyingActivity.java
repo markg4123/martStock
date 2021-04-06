@@ -299,6 +299,10 @@ public class BuyingActivity extends AppCompatActivity {
                 Intent v = new Intent(BuyingActivity.this, LiveMartsActivity.class);
                 startActivity(v);
                 return true;
+            case R.id.item7:
+                Intent vi = new Intent(BuyingActivity.this, MessagesActivity.class);
+                startActivity(vi);
+                return true;
 
 
         }

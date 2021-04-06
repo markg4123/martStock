@@ -46,17 +46,10 @@ public class PricesAdapter extends RecyclerView.Adapter<PricesAdapter.ViewHolder
         }
 
         double change = Double.parseDouble(price.getPriceChange().replace(" Cent Per Kilo", ""));
-        if(change>0){
-            holder.animalTextView.setBackgroundColor(Color.parseColor("#FF4CAF50"));
-            holder.priceChangeTextView.setBackgroundColor(Color.parseColor("#FF4CAF50"));
-            holder.ppkTextView.setBackgroundColor(Color.parseColor("#FF4CAF50"));
-        }
-        if(change<0){
-            holder.animalTextView.setBackgroundColor(Color.parseColor("#FFF10606"));
-            holder.priceChangeTextView.setBackgroundColor(Color.parseColor("#FFF10606"));
-            holder.ppkTextView.setBackgroundColor(Color.parseColor("#FFF10606"));
-        }
-
+        if(change>0)
+            holder.itemView.setBackgroundColor(Color.parseColor("#22D842"));
+        if(change<0)
+            holder.itemView.setBackgroundColor(Color.parseColor("#F10B33"));
     }
 
 
