@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "981004266248",
+    "firebase_url": "https://martstock-cb651.firebaseio.com",
+    "project_id": "martstock-cb651",
+    "storage_bucket": "martstock-cb651.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981004266248:android:612acc48cf97cfb4ad1abd",
+        "android_client_info": {
+          "package_name": "com.example.martstock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981004266248-ukg2lcv2pik9igv4d6djviruhfuu4j0h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.martstock",
+            "certificate_hash": "761cecda90ed6899ecfda4873bcf95aaf295db13"
+          }
+        },
+        {
+          "client_id": "981004266248-m0nq8sc71oogsmjvedr279tokbe4esbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjEqL6I-XHRI3QZccJ-x-TdEOm4sOPzHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981004266248-m0nq8sc71oogsmjvedr279tokbe4esbc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
