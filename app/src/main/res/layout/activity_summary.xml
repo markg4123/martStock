@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/background2"
     tools:context=".SummaryActivity">
 
 
@@ -22,7 +22,7 @@
         android:id="@+id/textView3"
         android:layout_width="144dp"
         android:layout_height="22dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/background2"
         android:drawableLeft="@drawable/ic_increace"
         android:text="Increace"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,7 @@
         android:id="@+id/textView20"
         android:layout_width="144dp"
         android:layout_height="22dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/background2"
         android:drawableLeft="@drawable/ic_decreace"
         android:text="Decreace"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -30,6 +30,7 @@ public class MessagesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         messagesRcv = findViewById(R.id.messagesRcv);
         messagesRcv.setHasFixedSize(true);

@@ -19,6 +19,7 @@ public class LiveMartsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_marts);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lv = findViewById(R.id.lv);
 

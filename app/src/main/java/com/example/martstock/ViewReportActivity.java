@@ -45,6 +45,7 @@ public class ViewReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_report);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         reportRcv = findViewById(R.id.reportRcv);

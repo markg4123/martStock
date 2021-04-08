@@ -56,6 +56,7 @@ public class UpdateAd extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_ad);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         addPhotos2 = findViewById(R.id.addPhotos2);

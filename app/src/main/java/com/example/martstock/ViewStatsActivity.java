@@ -12,6 +12,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+
 public class ViewStatsActivity extends AppCompatActivity {
     DatabaseReference userRef;
     int numBulls=0, numBullocks=0, numCalves=0, numDry=0, numCow=0, numHeifers=0,
@@ -26,6 +28,7 @@ public class ViewStatsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_stats);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         numBullsText = findViewById(R.id.numBullsText);
         bullsPriceText = findViewById(R.id.bullsPriceText);
@@ -109,34 +112,34 @@ public class ViewStatsActivity extends AppCompatActivity {
 
                 }
                 numBullsText.setText( String.valueOf(numBulls));
-                bullsPriceText.setText(String.valueOf(priceBulls));
+                bullsPriceText.setText(new DecimalFormat("#.##").format(priceBulls));
 
                 numBullocksText.setText(String.valueOf(numBullocks));
-                bullockPriceText.setText(String.valueOf(priceBullocks));
+                bullockPriceText.setText(new DecimalFormat("#.##").format(priceBullocks));
 
                 numCalfText.setText(String.valueOf(numCalves));
-                calfPriceText.setText(String.valueOf(priceCalves));
+                calfPriceText.setText(new DecimalFormat("#.##").format(priceCalves));
 
                 numCowText.setText(String.valueOf(numCow));
-                cowPriceText.setText(String.valueOf(priceCow));
+                cowPriceText.setText(new DecimalFormat("#.##").format(priceCow));
 
                 numDryText.setText(String.valueOf(numDry));
-                dryPriceText.setText(String.valueOf(priceDry));
+                dryPriceText.setText(new DecimalFormat("#.##").format(priceDry));
 
                 numHeiferText.setText(String.valueOf(numHeifers));
-                heiferPriceText.setText(String.valueOf(priceHeifers));
+                heiferPriceText.setText(new DecimalFormat("#.##").format(priceHeifers));
 
                 numCullsText.setText(String.valueOf(numCulls));
-                cullspriceTex.setText(String.valueOf(priceCull));
+                cullspriceTex.setText(new DecimalFormat("#.##").format(priceCull));
 
                 numEwesText.setText(String.valueOf(numEwes));
-                ewesPriceText.setText(String.valueOf(priceEwe));
+                ewesPriceText.setText(new DecimalFormat("#.##").format(priceEwe));
 
                 numRamText.setText(String.valueOf(numRams));
-                ramPriceText.setText(String.valueOf(priceRam));
+                ramPriceText.setText(new DecimalFormat("#.##").format(priceRam));
 
                 numLambsText.setText(String.valueOf(numLambs));
-                lambPriceText.setText(String.valueOf(priceLamb));
+                lambPriceText.setText(new DecimalFormat("#.##").format(priceLamb));
             }
 
 

@@ -31,6 +31,7 @@ public class SoldAdsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sold_ads);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         soldAdsRcv = findViewById(R.id.soldAdsRcv);
         soldAdsRcv.setHasFixedSize(true);

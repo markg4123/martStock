@@ -31,6 +31,7 @@ public class ManageMyAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_my_account);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
@@ -104,6 +105,12 @@ public class ManageMyAccount extends AppCompatActivity {
                 startActivity(iv);
             }
         });
-
+        logoutView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent vi = new Intent(ManageMyAccount.this, LoginActivity.class);
+                startActivity(vi);
+            }
+        });
     }
 }

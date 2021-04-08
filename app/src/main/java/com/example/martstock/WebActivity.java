@@ -16,6 +16,8 @@ public class WebActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         webView = findViewById(R.id.webview);
 
         selectedFromList = getIntent().getExtras().getString("selected ");

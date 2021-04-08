@@ -37,9 +37,9 @@ public class BuyingActivity extends AppCompatActivity {
     RecyclerView.Adapter adapter;
     ArrayList<Ad> ads = new ArrayList<Ad>();
 
-    Spinner filterSpinner,filterSpinner2;
+    Spinner filterSpinner;
     Button filterButton;
-    String result,result2;
+    String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +55,7 @@ public class BuyingActivity extends AppCompatActivity {
 
         filterButton = findViewById(R.id.filterButton);
         filterSpinner = findViewById(R.id.filterSpinner);
-        filterSpinner2 = findViewById(R.id.filterSpinner2);
-        final String[] filterList = {"All", "Cattle", "Sheep"};
+
         final String[] martList={ "All","Abbeyfeale Mart","Ardee Mart","Athenry Mart","Balla Mart","Ballina Mart","Ballinasloe Mart","Ballinrobe Mart",
                 "Ballbay Mart","Ballybofey & Stranorlar Mart","Ballyjamesduff Mart","Ballymahon Mart","Ballymeana Mart","Ballymote Mart","Ballyshannon Mart",
                 "Baltinglass Mart","Birr Mart","Blesington Mart","Borris Mart","Cahir Mart","Cardonagh Mart","Carlow Mart",
@@ -70,131 +69,44 @@ public class BuyingActivity extends AppCompatActivity {
                 "Newtownstewart Mart","Omagh Mart","Raphoe Mart","Roscommon Mart","Roscrea Mart","Thurles Mart","Tuam Mart",
                 "Tullamore Mart","Tullow Mart"};
 
-        filterSpinner.setAdapter(new ArrayAdapter<>(BuyingActivity.this, android.R.layout
-                .simple_spinner_dropdown_item, filterList));
 
-        filterSpinner2.setAdapter(new ArrayAdapter<>(BuyingActivity.this, android.R.layout
+        filterSpinner.setAdapter(new ArrayAdapter<>(BuyingActivity.this, android.R.layout
                 .simple_spinner_dropdown_item, martList));
 
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 result = filterSpinner.getSelectedItem().toString();
-                result2 = filterSpinner2.getSelectedItem().toString();
                 userRef =  FirebaseDatabase.getInstance().getReference("Ad");
+
                 userRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (final DataSnapshot s : snapshot.getChildren()) {
                             final Ad a = s.getValue(Ad.class);
-                            if (result2.equalsIgnoreCase("All")){
+
+                            ads.clear();
+                            if (result.equals(a.getMart())) {
                                 ads.add(a);
                             }
+                            adapter = new MyAdapter(ads);
+                            rcv.setAdapter(adapter);
+                            adapter.notifyItemInserted(ads.size() - 1);
                         }
-                        }
+                    }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Toast.makeText(BuyingActivity.this, "Error", Toast.LENGTH_LONG).show();
                     }
                 });
-                userRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (final DataSnapshot s : snapshot.getChildren()) {
-                            final Ad a = s.getValue(Ad.class);
 
-                            if (result.equalsIgnoreCase("All") && result2.equals(a.getMart())) {
-                                userRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        ads.clear();
-
-                                        if (a.getSection().equals(result) && result2.equals(a.getMart())) {
-                                            ads.add(a);
-                                        }
-
-
-                                        adapter = new MyAdapter(ads);
-                                        rcv.setAdapter(adapter);
-                                        adapter.notifyItemInserted(ads.size() - 1);
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError error) {
-                                        // Failed to read value
-                                        Toast.makeText(BuyingActivity.this, "Error", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }
-                            else if (result.equalsIgnoreCase("Cattle") && result2.equals(a.getMart())) {
-                                userRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        ads.clear();
-
-
-                                        if (a.getSection().equals(result) && result2.equals(a.getMart())) {
-                                            ads.add(a);
-                                        }
-
-
-                                        adapter = new MyAdapter(ads);
-                                        rcv.setAdapter(adapter);
-                                        adapter.notifyItemInserted(ads.size() - 1);
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError error) {
-                                        // Failed to read value
-                                        Toast.makeText(BuyingActivity.this, "Error", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }
-                            else if (result.equalsIgnoreCase("Sheep") && result2.equals(a.getMart())) {
-                                userRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        ads.clear();
-                                        if (a.getSection().equals(result) && result2.equals(a.getMart())) {
-                                            ads.add(a);
-                                        }
-
-
-                                        adapter = new MyAdapter(ads);
-                                        rcv.setAdapter(adapter);
-                                        adapter.notifyItemInserted(ads.size() - 1);
-
-
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError error) {
-                                        // Failed to read value
-                                        Toast.makeText(BuyingActivity.this, "Error", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }
-
-
-                        }
-
-                        }
-
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
             }
         });
 
 
         userRef =  FirebaseDatabase.getInstance().getReference("Ad");
+
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -220,6 +132,7 @@ public class BuyingActivity extends AppCompatActivity {
                 Toast.makeText(BuyingActivity.this, "Error", Toast.LENGTH_LONG).show();
             }
         });
+
 
 
     }

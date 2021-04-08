@@ -46,6 +46,7 @@ public class LikedAdsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liked_ads);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         likeAdsRCV = findViewById(R.id.likeAdsRCV);
         likeAdsRCV.setHasFixedSize(true);
@@ -56,7 +57,7 @@ public class LikedAdsActivity extends AppCompatActivity {
         userId = mAuth.getCurrentUser().getUid();
 
 
-        ref =  FirebaseDatabase.getInstance().getReference("LikedAd");
+        ref = FirebaseDatabase.getInstance().getReference("LikedAd");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -69,7 +70,7 @@ public class LikedAdsActivity extends AppCompatActivity {
 
                         likedAds.add(a);
                         Collections.reverse(likedAds);
-                        adapter = new LikedAdsAdapter(likedAds,null);
+                        adapter = new LikedAdsAdapter(likedAds, null);
                         likeAdsRCV.setAdapter(adapter);
                         adapter.notifyItemInserted(likedAds.size() - 1);
                     }
@@ -84,28 +85,5 @@ public class LikedAdsActivity extends AppCompatActivity {
         });
 
 
-
-
-            String message = "this is a notification";
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(LikedAdsActivity.this)
-                    .setSmallIcon(R.drawable.ic_baseline_message_24)
-                    .setContentTitle("New Notification")
-                    .setContentText(message)
-                    .setAutoCancel(true);
-
-            Intent intent = new Intent(LikedAdsActivity.this, NotificationActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("message", message);
-            PendingIntent pendingIntent = PendingIntent.getActivity(LikedAdsActivity.this
-                    , 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            builder.setContentIntent(pendingIntent);
-            NotificationManager notificationManager = (NotificationManager) getSystemService(
-                    Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(0, builder.build());
-        }
-
-
-
-
     }
+ }

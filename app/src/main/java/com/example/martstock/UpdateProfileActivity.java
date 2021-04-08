@@ -31,6 +31,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         updateNameText = findViewById(R.id.updateNameText);
         updateUsernameText = findViewById(R.id.updateUsernameText);

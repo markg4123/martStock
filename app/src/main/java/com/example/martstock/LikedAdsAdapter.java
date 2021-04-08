@@ -9,6 +9,7 @@ import android.net.Uri;
 
 import android.os.Bundle;
 import android.support.v4.media.MediaBrowserCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,7 @@ public class LikedAdsAdapter extends RecyclerView.Adapter<LikedAdsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        LikedAds likedAd = likedAds.get(position);
+        final LikedAds likedAd = likedAds.get(position);
 
         holder.likedadTitleText.setText(likedAd.getAdTitle() + "\n");
         holder.likedpriceText.setText("Price \n €" + likedAd.getPrice() + "\n");
@@ -80,23 +81,23 @@ public class LikedAdsAdapter extends RecyclerView.Adapter<LikedAdsAdapter.ViewHo
         holder.removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                fireDB = FirebaseDatabase.getInstance().getReference("LikedAds");
+                final LikedAds likedAd = likedAds.get(position);
+                fireDB = FirebaseDatabase.getInstance().getReference("LikedAd");
                 fireDB.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            LikedAds likedAds = dataSnapshot.getValue(LikedAds.class);
 
-                            Intent intent = ((Activity) v.getContext()).getIntent();
-                            key = intent.getStringExtra("key");
-
+                            key = likedAd.getKey();
                             key1 = dataSnapshot.getKey();
 
-                            if(key.equals(key1)){
+                            if(key.equals(key1)) {
                                 fireDB.child(key).removeValue();
+                                Toast.makeText(v.getContext(), "Ad Removed From Liked Ads", Toast.LENGTH_SHORT).show();
                             }
 
                         }
+
                     }
 
                     @Override

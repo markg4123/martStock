@@ -80,40 +80,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
         userRef =  FirebaseDatabase.getInstance().getReference("Ad");
         ref =  FirebaseDatabase.getInstance().getReference("LikedAd");
 
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (final DataSnapshot s : snapshot.getChildren()) {
-                    final Ad a = s.getValue(Ad.class);
-
-                    ref.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (final DataSnapshot s : snapshot.getChildren()) {
-                                final LikedAds la = s.getValue(LikedAds.class);
-
-                                if(a.getId().equals(la.getId())) {
-                                    holder.likesText.setEnabled(false);
-                                }
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
 
 
         Picasso.get().load(myUri).into(holder.image);
@@ -151,6 +117,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
                 uri = ad.getUrl();
                 myUri = Uri.parse(uri);
 
+
                 LikedAds likedAd = new LikedAds(title, price, mart, breed, age, desc, uri,date, id,key);
                 likedAds.add(likedAd);
 
@@ -162,7 +129,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
 
-                            holder.likesText.setEnabled(false);
                             Drawable img = v.getContext().getResources().getDrawable(R.drawable.ic_baseline_thumb_up_24_pink);
                             img.setBounds(0, 0, 70, 70);
                             holder.likesText.setCompoundDrawables(img, null, null, null);
