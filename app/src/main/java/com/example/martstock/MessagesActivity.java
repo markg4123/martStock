@@ -50,10 +50,9 @@ public class MessagesActivity extends AppCompatActivity {
                 for (DataSnapshot s : dataSnapshot.getChildren()) {
 
                     ChatMessage chatMessage = s.getValue(ChatMessage.class);
-                    if(chatMessage.getMessageSender().equals(userId)||
-                    chatMessage.getMessageReciever().equals(userId)) {
+
                         chatMessages.add(chatMessage);
-                    }
+
 
                     adapter = new MessageAdapter(chatMessages);
                     messagesRcv.setAdapter(adapter);

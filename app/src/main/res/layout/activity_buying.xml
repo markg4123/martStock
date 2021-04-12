@@ -34,6 +34,7 @@
         android:id="@+id/filterButton"
         android:layout_width="96dp"
         android:layout_height="43dp"
+        android:background="#00C853"
         android:text="Filter"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"

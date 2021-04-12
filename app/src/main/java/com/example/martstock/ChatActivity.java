@@ -36,7 +36,6 @@ public class ChatActivity extends AppCompatActivity {
     EditText messageArea;
     ScrollView scrollView;
     Firebase reference1;
-    Firebase reference2;
     DatabaseReference reference3;
     FirebaseDatabase database;
     FirebaseAuth mAuth;
@@ -58,13 +57,13 @@ public class ChatActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        final String reciever = getIntent().getExtras().getString("id");
+        final String reciever = getIntent().getExtras().getString("userID");
 
 
         Firebase.setAndroidContext(this);
-        reference1 = new Firebase("https://martstock-cb651.firebaseio.com/Chat");
-        reference2 = new Firebase("https://martstock-cb651.firebaseio.com/" + reciever + "_" + userId);
-        reference3 =  FirebaseDatabase.getInstance().getReference("Chat").push();
+        reference1 = new Firebase("https://martstock-cb651.firebaseio.com/Chat").child( reciever + "_" + userId);
+
+        reference3 =  FirebaseDatabase.getInstance().getReference("Chat");
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +76,6 @@ public class ChatActivity extends AppCompatActivity {
                     map.put("messageReciever", reciever);
                     map.put("messageID", messageID);
                     reference1.push().setValue(map);
-                    reference2.push().setValue(map);
                     messageArea.setText("");
 
                 }
@@ -89,16 +87,15 @@ public class ChatActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 Map map = dataSnapshot.getValue(Map.class);
-                String message = map.get("messageText").toString();
+                String messageText = map.get("messageText").toString();
                 String sender = map.get("messageSender").toString();
                 String key = map.get("messageID").toString();
 
-                Log.i(userId, "This is the user id"+ key + "This is the key"+ dataSnapshot.getKey());
                 if(sender.equals(userId)&&(key.equals(dataSnapshot.getKey()))){
-                    addMessageBox(message, 1);
+                    addMessageBox(messageText, 1);
                 }
                  if(reciever.equals(userId)&&(key.equals(dataSnapshot.getKey()))){
-                    addMessageBox(message, 2);
+                    addMessageBox(messageText, 2);
                 }else{
                      Toast.makeText(ChatActivity.this, "No Messages!", Toast.LENGTH_SHORT).show();
                 }

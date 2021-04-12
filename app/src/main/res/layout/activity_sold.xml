@@ -190,6 +190,7 @@
         android:id="@+id/soldButton"
         android:layout_width="221dp"
         android:layout_height="48dp"
+        android:background="#00C853"
         android:text="Mark As Sold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

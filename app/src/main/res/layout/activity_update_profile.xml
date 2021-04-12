@@ -11,7 +11,7 @@
         android:id="@+id/updateButton2"
         android:layout_width="164dp"
         android:layout_height="31dp"
-        android:background="#CDCDCD"
+        android:background="#00C853"
         android:text="Update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

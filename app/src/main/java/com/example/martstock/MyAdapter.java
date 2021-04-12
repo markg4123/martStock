@@ -67,12 +67,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
         Ad ad = ads.get(position);
 
 
-        holder.adTitleText.setText(ad.getAdTitle() + "\n");
-        holder.priceText.setText("Price \n €" + ad.getPrice() + "\n");
-        holder.martText.setText(ad.getMart() + " " + ad.getDate() + "\n");
-        holder.breedText.setText("Breed: " + ad.getBreed() + "\n");
-        holder.ageText.setText("Age: " + ad.getAge() + "\n");
-        holder.descText.setText(ad.getDescription() + "\n");
+        holder.adTitleText.setText(ad.getAdTitle() );
+        holder.priceText.setText("Price \n €" + ad.getPrice());
+        holder.martText.setText(ad.getMart() + " " + ad.getDate());
+        holder.breedText.setText("Breed: " + ad.getBreed());
+        holder.ageText.setText("Age: " + ad.getAge());
+        holder.descText.setText(ad.getDescription());
 
         uri = ad.getUrl();
         myUri = Uri.parse(uri);
