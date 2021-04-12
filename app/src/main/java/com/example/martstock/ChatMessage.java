@@ -1,17 +1,29 @@
 package com.example.martstock;
 
+import java.util.Date;
+
 public class ChatMessage {
     String messageSender, messageReciever, messageText;
+    Date date;
 
     public ChatMessage(){
 
     }
 
-    public ChatMessage(String messageSender, String messageReciever,String messageText) {
+    public ChatMessage(String messageSender, String messageReciever,String messageText, Date date) {
         this.messageSender = messageSender;
         this.messageReciever = messageReciever;
         this.messageText = messageText;
+        this.date = date;
 
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getMessageText() {

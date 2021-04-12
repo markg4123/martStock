@@ -49,7 +49,7 @@ public class PricesAdapter extends RecyclerView.Adapter<PricesAdapter.ViewHolder
         if(change>0)
             holder.itemView.setBackgroundColor(Color.parseColor("#22D842"));
         if(change<0)
-            holder.itemView.setBackgroundColor(Color.parseColor("#F10B33"));
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFD600"));
     }
 
 

@@ -50,9 +50,8 @@ android {
         implementation 'com.firebase:firebase-client-android:2.5.2'
         implementation 'org.jsoup:jsoup:1.13.1'
         implementation 'com.squareup.picasso:picasso:2.71828'
-        implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
         compile 'com.firebaseui:firebase-ui:0.6.0'
-        testImplementation 'junit:junit:4.12'
+        testImplementation 'junit:junit:4.13'
         androidTestImplementation 'androidx.test.ext:junit:1.1.2'
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
         android.defaultConfig.vectorDrawables.useSupportLibrary = true

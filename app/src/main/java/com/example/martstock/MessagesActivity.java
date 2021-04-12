@@ -51,7 +51,7 @@ public class MessagesActivity extends AppCompatActivity {
 
                     ChatMessage chatMessage = s.getValue(ChatMessage.class);
 
-                        chatMessages.add(chatMessage);
+                    chatMessages.add(chatMessage);
 
 
                     adapter = new MessageAdapter(chatMessages);

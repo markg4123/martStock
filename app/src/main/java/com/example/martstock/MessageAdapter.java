@@ -58,6 +58,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final ChatMessage chatMessage = chats.get(position);
 
+
         holder.messageDisplay.setText("Message: " +chatMessage.getMessageText());
         holder.senderDisplay.setText("From: "+chatMessage.getMessageSender());
 

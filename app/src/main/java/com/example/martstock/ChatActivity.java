@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,8 +37,7 @@ public class ChatActivity extends AppCompatActivity {
     ImageView sendButton;
     EditText messageArea;
     ScrollView scrollView;
-    Firebase reference1;
-    DatabaseReference reference3;
+    Firebase reference1, reference2;
     FirebaseDatabase database;
     FirebaseAuth mAuth;
     String userId;
@@ -57,25 +58,30 @@ public class ChatActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        final String reciever = getIntent().getExtras().getString("userID");
-
+        final String reciever = getIntent().getExtras().getString("id");
 
         Firebase.setAndroidContext(this);
         reference1 = new Firebase("https://martstock-cb651.firebaseio.com/Chat").child( reciever + "_" + userId);
+        reference2 = new Firebase("https://martstock-cb651.firebaseio.com/Chat").child( userId + "_" + reciever);
 
-        reference3 =  FirebaseDatabase.getInstance().getReference("Chat");
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String messageText = messageArea.getText().toString();
-                 String messageID = reference3.getKey();
+                 String messageID = reference1.getKey();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                Date date = new Date();
+
                 if(!messageText.equals("")){
                     Map<String, String> map = new HashMap<String,String>();
                     map.put("messageText", messageText);
                     map.put("messageSender", userId);
                     map.put("messageReciever", reciever);
                     map.put("messageID", messageID);
+                    map.put("time",formatter.format(date));
                     reference1.push().setValue(map);
+                    reference2.push().setValue(map);
                     messageArea.setText("");
 
                 }
@@ -94,11 +100,9 @@ public class ChatActivity extends AppCompatActivity {
                 if(sender.equals(userId)&&(key.equals(dataSnapshot.getKey()))){
                     addMessageBox(messageText, 1);
                 }
-                 if(reciever.equals(userId)&&(key.equals(dataSnapshot.getKey()))){
+                else
                     addMessageBox(messageText, 2);
-                }else{
-                     Toast.makeText(ChatActivity.this, "No Messages!", Toast.LENGTH_SHORT).show();
-                }
+
             }
 
             @Override

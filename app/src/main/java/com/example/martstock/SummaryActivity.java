@@ -6,13 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,9 +20,6 @@ public class SummaryActivity extends AppCompatActivity {
     RecyclerView.Adapter pricesAdapter;
     Document doc;
     ArrayList<Prices> prices = new ArrayList<>();
-    BarChart barChart;
-    String hefPrice;
-    Float pri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +27,6 @@ public class SummaryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_summary);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        barChart = (BarChart) findViewById(R.id.bargraph);
 
 
         pricesRcv = findViewById(R.id.pricesRcv);

@@ -37,7 +37,7 @@
         android:layout_width="144dp"
         android:layout_height="22dp"
         android:background="@drawable/background2"
-        android:drawableLeft="@drawable/ic_decreace"
+        android:drawableLeft="@drawable/ic_baseline_increace"
         android:text="Decreace"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
