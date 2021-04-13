@@ -40,7 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
     String title,age,breed,desc,date, mart, id,key;
     int price;
     ArrayList<LikedAds> likedAds = new ArrayList<LikedAds>();
-    DatabaseReference reference, userRef, ref;
+    DatabaseReference reference, reference1, ref;
     FirebaseAuth mAuth;
 
 
@@ -77,7 +77,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
         uri = ad.getUrl();
         myUri = Uri.parse(uri);
 
-        userRef =  FirebaseDatabase.getInstance().getReference("Ad");
+        reference1 =  FirebaseDatabase.getInstance().getReference("Ad");
         ref =  FirebaseDatabase.getInstance().getReference("LikedAd");
 
 
@@ -93,6 +93,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
 
                 Intent i = new Intent(v.getContext(), ChatActivity.class);
                 i.putExtra("id", rec);
+                i.putExtra("adId", ad.getKey());
                 v.getContext().startActivity(i);
             }
         });

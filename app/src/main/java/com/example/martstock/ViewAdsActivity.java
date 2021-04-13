@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ViewAdsActivity extends AppCompatActivity {
     DatabaseReference userRef;
@@ -56,6 +57,7 @@ public class ViewAdsActivity extends AppCompatActivity {
 
                     if (userId.equals(a.getId())) {
 
+                        Collections.reverse(ads);
                         ads.add(a);
                         rcv2.setAdapter(adapter);
                         adapter.notifyItemInserted(ads.size() - 1);

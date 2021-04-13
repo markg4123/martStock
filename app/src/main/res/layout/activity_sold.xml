@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FFFFFF"
+    android:background="@drawable/background2"
     tools:context=".SoldActivity">
 
     <TextView
@@ -190,7 +190,7 @@
         android:id="@+id/soldButton"
         android:layout_width="221dp"
         android:layout_height="48dp"
-        android:background="#00C853"
+        android:background="#FF43A047"
         android:text="Mark As Sold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

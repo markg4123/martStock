@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class SoldAdsActivity extends AppCompatActivity {
 
@@ -53,6 +54,7 @@ public class SoldAdsActivity extends AppCompatActivity {
 
                     if (userId.equals(a.getId())) {
 
+                        Collections.reverse(soldAds);
                         soldAds.add(a);
                         adapter = new SoldAdsAdapter(soldAds);
                         soldAdsRcv.setAdapter(adapter);

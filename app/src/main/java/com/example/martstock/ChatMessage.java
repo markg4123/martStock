@@ -3,26 +3,44 @@ package com.example.martstock;
 import java.util.Date;
 
 public class ChatMessage {
-    String messageSender, messageReciever, messageText;
-    Date date;
+    String messageSender, messageReciever, messageText,date, messageID, adId;
+
 
     public ChatMessage(){
 
     }
 
-    public ChatMessage(String messageSender, String messageReciever,String messageText, Date date) {
+    public ChatMessage(String messageSender, String messageReciever,String messageText, String date, String messageID, String adId) {
         this.messageSender = messageSender;
         this.messageReciever = messageReciever;
         this.messageText = messageText;
         this.date = date;
+        this.messageID = messageID;
+        this.adId = adId;
 
     }
 
-    public Date getDate() {
+    public String getAdId() {
+        return adId;
+    }
+
+    public void setAdId(String adId) {
+        this.adId = adId;
+    }
+
+    public String getMessageID() {
+        return messageID;
+    }
+
+    public void setMessageID(String messageID) {
+        this.messageID = messageID;
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

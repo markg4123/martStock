@@ -50,6 +50,8 @@ public class UpdateAd extends AppCompatActivity {
     private Uri imageUri;
     StorageReference mStorageRef;
     DatabaseReference fireDB;
+    Uri downloadUri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +134,7 @@ public class UpdateAd extends AppCompatActivity {
         mart = getIntent().getExtras().getString("mart");
         key = getIntent().getExtras().getString("key");
 
-
+        downloadUri = getIntent().getExtras().getParcelable("uri");
 
         adTitleText2.setText(title);
         priceText2.setText(price);
@@ -151,20 +153,71 @@ public class UpdateAd extends AppCompatActivity {
             }
         });
 
-
-        addPhotos2.setOnClickListener(new View.OnClickListener()
-
-        {
+        updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
-                choosePhotos();
+            public void onClick(View v) {
+
+
+                final String title = adTitleText2.getText().toString();
+                final int price = Integer.parseInt(String.valueOf(priceText2.getText()));
+                final String section = sectionSpinner.getSelectedItem().toString();
+                final String breed = breedSpinner2.getSelectedItem().toString();
+                final String mart = martText2.getText().toString();
+                final String age = ageText2.getText().toString() + " " + ageSpinner.getSelectedItem().toString();
+                final String desc = descText2.getText().toString();
+                final String id = mAuth.getCurrentUser().getUid();
+                final String date = datetext2.getText().toString();
+                final String uri = downloadUri.toString();
+
+
+                fireDB = FirebaseDatabase.getInstance().getReference("Ad");
+
+                fireDB.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        for(DataSnapshot userSnapshot : snapshot.getChildren()) {
+                            Ad ad = userSnapshot.getValue(Ad.class);
+
+                            key1 = userSnapshot.getKey();
+
+                            if(key.equals(key1)){
+
+
+                                fireDB.child(key).child("adTitle").setValue(title);
+                                fireDB.child(key).child("age").setValue(age);
+                                fireDB.child(key).child("breed").setValue(breed);
+                                fireDB.child(key).child("description").setValue(desc);
+                                fireDB.child(key).child("id").setValue(id);
+                                fireDB.child(key).child("mart").setValue(mart);
+                                fireDB.child(key).child("price").setValue(price);
+                                fireDB.child(key).child("section").setValue(section);
+                                fireDB.child(key).child("date").setValue(date);
+                                fireDB.child(key).child("url").setValue(uri);
+
+                                Toast.makeText(UpdateAd.this, "Ad Updated!", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(UpdateAd.this, ViewAdsActivity.class);
+                                startActivity(i);
+                            }
+
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
-
-
         });
 
-
-
+        addPhotos2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                choosePhotos();
+            }
+        });
     }
 
     private void choosePhotos() {
@@ -204,61 +257,8 @@ public class UpdateAd extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
-                    final Uri downloadUri = task.getResult();
+                    downloadUri = task.getResult();
                     Log.i("url", downloadUri.toString());
-
-                    updateButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            final String title = adTitleText2.getText().toString();
-                            final int price = Integer.parseInt(String.valueOf(priceText2.getText()));
-                            final String section = sectionSpinner.getSelectedItem().toString();
-                            final String breed = breedSpinner2.getSelectedItem().toString();
-                            final String mart = martText2.getText().toString();
-                            final String age = ageText2.getText().toString() + " " + ageSpinner.getSelectedItem().toString();
-                            final String desc = descText2.getText().toString();
-                            final String id = mAuth.getCurrentUser().getUid();
-                            final String uri = downloadUri.toString();
-                            final String date = datetext2.getText().toString();
-                            fireDB = FirebaseDatabase.getInstance().getReference("Ad");
-
-                                            fireDB.addValueEventListener(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(DataSnapshot snapshot) {
-                                                    for(DataSnapshot userSnapshot : snapshot.getChildren()) {
-                                                        Ad ad = userSnapshot.getValue(Ad.class);
-
-                                                        key1 = userSnapshot.getKey();
-
-                                                        if(key.equals(key1)){
-
-
-                                                            fireDB.child(key).child("adTitle").setValue(title);
-                                                            fireDB.child(key).child("age").setValue(age);
-                                                            fireDB.child(key).child("breed").setValue(breed);
-                                                            fireDB.child(key).child("description").setValue(desc);
-                                                            fireDB.child(key).child("id").setValue(id);
-                                                            fireDB.child(key).child("mart").setValue(mart);
-                                                            fireDB.child(key).child("price").setValue(price);
-                                                            fireDB.child(key).child("section").setValue(section);
-                                                            fireDB.child(key).child("date").setValue(date);
-                                                            fireDB.child(key).child("url").setValue(uri);
-
-                                            Toast.makeText(UpdateAd.this, "Ad Updated!", Toast.LENGTH_SHORT).show();
-                                        }
-
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
-
-                        }
-                    });
                 }
                 else {
                     Toast.makeText(UpdateAd.this, "upload image failed", Toast.LENGTH_LONG).show();

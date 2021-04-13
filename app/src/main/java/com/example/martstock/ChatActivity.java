@@ -15,17 +15,25 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.client.ChildEventListener;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,10 +45,11 @@ public class ChatActivity extends AppCompatActivity {
     ImageView sendButton;
     EditText messageArea;
     ScrollView scrollView;
-    Firebase reference1, reference2;
+    DatabaseReference reference, reference2, reference3;
     FirebaseDatabase database;
     FirebaseAuth mAuth;
     String userId;
+    ArrayList<ChatMessage> chatMessages = new ArrayList<ChatMessage>();
 
 
     @Override
@@ -59,69 +68,87 @@ public class ChatActivity extends AppCompatActivity {
         userId = mAuth.getCurrentUser().getUid();
 
         final String reciever = getIntent().getExtras().getString("id");
+        final String adID = getIntent().getExtras().getString("adId");
 
-        Firebase.setAndroidContext(this);
-        reference1 = new Firebase("https://martstock-cb651.firebaseio.com/Chat").child( reciever + "_" + userId);
-        reference2 = new Firebase("https://martstock-cb651.firebaseio.com/Chat").child( userId + "_" + reciever);
-
-
+        reference = FirebaseDatabase.getInstance().getReference("Chat").push();
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String messageText = messageArea.getText().toString();
-                 String messageID = reference1.getKey();
+                String messageID = reference.getKey();
+
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                 Date date = new Date();
 
-                if(!messageText.equals("")){
-                    Map<String, String> map = new HashMap<String,String>();
-                    map.put("messageText", messageText);
-                    map.put("messageSender", userId);
-                    map.put("messageReciever", reciever);
-                    map.put("messageID", messageID);
-                    map.put("time",formatter.format(date));
-                    reference1.push().setValue(map);
-                    reference2.push().setValue(map);
-                    messageArea.setText("");
+                if (!messageText.equals("")) {
+
+                    ChatMessage chatMessage = new ChatMessage(userId, reciever, messageText, formatter.format(date), messageID,adID);
+                    chatMessages.add(chatMessage);
+
+                    reference.setValue(chatMessage).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(ChatActivity.this, "Sent", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(ChatActivity.this, "Error Sending", Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ChatActivity.this, "Error Sending" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+
 
                 }
             }
         });
+        reference2 = FirebaseDatabase.getInstance().getReference("Chat");
 
-        reference1.addChildEventListener(new ChildEventListener() {
+        reference3 = FirebaseDatabase.getInstance().getReference("Ad");
+
+        reference2.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot messageSnapshot : snapshot.getChildren()) {
+                    ChatMessage chat = messageSnapshot.getValue(ChatMessage.class);
 
-                Map map = dataSnapshot.getValue(Map.class);
-                String messageText = map.get("messageText").toString();
-                String sender = map.get("messageSender").toString();
-                String key = map.get("messageID").toString();
+                    String sender = chat.getMessageSender();
+                    String message = chat.getMessageText();
+                    String key = chat.getMessageID();
 
-                if(sender.equals(userId)&&(key.equals(dataSnapshot.getKey()))){
-                    addMessageBox(messageText, 1);
+
+                  reference3.addValueEventListener(new ValueEventListener() {
+                      @Override
+                      public void onDataChange(@NonNull DataSnapshot snapshot) {
+                          for(DataSnapshot adSnapshot : snapshot.getChildren()) {
+                              Ad a = adSnapshot.getValue(Ad.class);
+
+                              if(a.getKey().equals(adID)){
+
+                                  if(sender.equals(userId) ) {
+                                      addMessageBox(message, 2);
+                                  }
+                                  else{
+                                      addMessageBox(message, 1);
+                                  }
+                              }
+                          }
+                      }
+
+                      @Override
+                      public void onCancelled(@NonNull DatabaseError error) {
+
+                      }
+                  });
+
                 }
-                else
-                    addMessageBox(messageText, 2);
-
             }
-
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });

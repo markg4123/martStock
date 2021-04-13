@@ -78,20 +78,31 @@ public class BuyingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 result = filterSpinner.getSelectedItem().toString();
                 userRef =  FirebaseDatabase.getInstance().getReference("Ad");
-
+                ads.clear();
                 userRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (final DataSnapshot s : snapshot.getChildren()) {
                             final Ad a = s.getValue(Ad.class);
 
-                            ads.clear();
                             if (result.equals(a.getMart())) {
                                 ads.add(a);
+
+                                Collections.reverse(ads);
+                                adapter = new MyAdapter(ads);
+                                rcv.setAdapter(adapter);
+                                adapter.notifyItemInserted(ads.size() - 1);
                             }
-                            adapter = new MyAdapter(ads);
-                            rcv.setAdapter(adapter);
-                            adapter.notifyItemInserted(ads.size() - 1);
+                            else if (result.equals("All")) {
+                                ads.add(a);
+
+                                Collections.reverse(ads);
+                                adapter = new MyAdapter(ads);
+                                rcv.setAdapter(adapter);
+                                adapter.notifyItemInserted(ads.size() - 1);
+                            }
+
+
                         }
                     }
 

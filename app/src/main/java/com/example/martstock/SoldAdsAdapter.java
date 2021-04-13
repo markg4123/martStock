@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SoldAdsAdapter extends RecyclerView.Adapter<SoldAdsAdapter.ViewHolder> {
@@ -38,7 +39,7 @@ public class SoldAdsAdapter extends RecyclerView.Adapter<SoldAdsAdapter.ViewHold
         holder.soldDateText.setText( "Date: " +oldAd.getDate()+"\n");
         holder.noSoldText.setText( "Amount Sold: " +oldAd.getNumSold()+"\n");
         holder.avgWText.setText( "Average Weight: " +oldAd.getAvgWeight()+"\n");
-        holder.pricepkgText.setText("Price/kg: €" + oldAd.getPricePerKilo()+"\n");
+        holder.pricepkgText.setText("Price/kg: €" +  new DecimalFormat("#.##").format(oldAd.getPricePerKilo())+"\n");
         holder.askingPriceText.setText( "Asking Price: €" +oldAd.getAskingPrice()+"\n");
         if(oldAd.getDifference()>0)
         holder.differenceText.setText( "You sold for €" +oldAd.getDifference()+" more than you asked for!");
