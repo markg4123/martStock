@@ -70,9 +70,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         ChatMessage chatMessage = chats.get(position);
-        if (userID.equals(chatMessage.getMessageSender()) || userID.equals(chatMessage.getMessageReciever())) {
-            holder.messageDisplay.setText(chatMessage.getMessageText());
-            holder.senderDisplay.setText(chatMessage.getMessageSender());
+
+
 
             holder.messageDisplay.setText("Message: " +chatMessage.getMessageText());
             holder.senderDisplay.setText("From: "+chatMessage.getMessageSender());
@@ -87,7 +86,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 }
             });
 
-        }
 
 
 

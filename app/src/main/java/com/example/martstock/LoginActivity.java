@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser mUser = mAuth.getCurrentUser();
-                if (mUser != null) {
+                if (mUser == null) {
                     Intent i = new Intent(LoginActivity.this, BuyingActivity.class);
                     startActivity(i);
                 } else {

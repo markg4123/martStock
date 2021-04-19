@@ -74,6 +74,7 @@ public class ChatActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                chatMessages.clear();
                 String messageText = messageArea.getText().toString();
                 String messageID = reference.getKey();
 
@@ -110,42 +111,44 @@ public class ChatActivity extends AppCompatActivity {
 
         reference3 = FirebaseDatabase.getInstance().getReference("Ad");
 
-        reference2.addValueEventListener(new ValueEventListener() {
+       reference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot messageSnapshot : snapshot.getChildren()) {
                     ChatMessage chat = messageSnapshot.getValue(ChatMessage.class);
 
                     String sender = chat.getMessageSender();
+                    String reciever = chat.getMessageReciever();
                     String message = chat.getMessageText();
                     String key = chat.getMessageID();
 
 
-                  reference3.addValueEventListener(new ValueEventListener() {
-                      @Override
-                      public void onDataChange(@NonNull DataSnapshot snapshot) {
-                          for(DataSnapshot adSnapshot : snapshot.getChildren()) {
-                              Ad a = adSnapshot.getValue(Ad.class);
+           //       reference3.addValueEventListener(new ValueEventListener() {
+             //         @Override
+               //       public void onDataChange(@NonNull DataSnapshot snapshot) {
+                 //         for(DataSnapshot adSnapshot : snapshot.getChildren()) {
+                   //           Ad a = adSnapshot.getValue(Ad.class);
 
-                              if(a.getKey().equals(adID)){
-
+                     //         if(a.getKey().equals(adID)){
+                                if(chat.getAdId().equals(adID)){
                                   if(sender.equals(userId) ) {
                                       addMessageBox(message, 2);
                                   }
-                                  else{
+                                  else if(reciever.equals(userId)) {
                                       addMessageBox(message, 1);
                                   }
-                              }
+                       //           }
+                         //     }
                           }
                       }
 
-                      @Override
-                      public void onCancelled(@NonNull DatabaseError error) {
+                     // @Override
+                      //public void onCancelled(@NonNull DatabaseError error) {
 
-                      }
-                  });
+                      //}
+                  //});
 
-                }
+               // }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

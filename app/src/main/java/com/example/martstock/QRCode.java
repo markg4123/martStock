@@ -2,11 +2,13 @@ package com.example.martstock;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.print.PrintHelper;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -92,36 +94,18 @@ public class QRCode extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BitmapDrawable draw = (BitmapDrawable) image.getDrawable();
-                Bitmap bitmap = draw.getBitmap();
-
-                FileOutputStream outStream = null;
-                File sdCard = Environment.getExternalStorageDirectory();
-                File dir = new File(sdCard.getAbsolutePath() + "/SaveImages");
-                dir.mkdirs();
-                String fileName = String.format("%d.jpg", System.currentTimeMillis());
-                File outFile = new File(dir, fileName);
-                try {
-                    outStream = new FileOutputStream(outFile);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-                try {
-                    outStream.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    outStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+             doPhotoPrint();
             }
         });
     }
 
-
+    private void doPhotoPrint() {
+        PrintHelper photoPrinter = new PrintHelper(QRCode.this);
+        photoPrinter.setScaleMode(PrintHelper.SCALE_MODE_FIT);
+        //Bitmap bitmap = imageView.getDrawingCache(  );
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        photoPrinter.printBitmap("QR Code",bitmap);
+    }
 
 }
 
