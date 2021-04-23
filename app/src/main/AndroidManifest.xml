@@ -9,8 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -22,65 +22,83 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MessagesActivity"
-            android:label="Messages"
-            android:parentActivityName=".BuyingActivity"/>
-        <activity android:name=".QRCode"
+        <activity android:name=".CommentActivity"
+            android:label="Comments"
+            android:parentActivityName=".BuyingActivity">
+
+        </activity>
+        <activity
+            android:name=".QRCode"
             android:label="Generate QR Code"
-            android:parentActivityName=".BuyingActivity"/>
-        <activity android:name=".SummaryActivity"
+            android:parentActivityName=".BuyingActivity" />
+        <activity
+            android:name=".SummaryActivity"
             android:label="Factory Prices"
-            android:parentActivityName=".ViewReportActivity"/>
-        <activity android:name=".WebActivity"
+            android:parentActivityName=".ViewReportActivity" />
+        <activity
+            android:name=".WebActivity"
             android:label="Live Mart"
-            android:parentActivityName=".LiveMartsActivity"/>
-        <activity android:name=".LiveMartsActivity"
+            android:parentActivityName=".LiveMartsActivity" />
+        <activity
+            android:name=".LiveMartsActivity"
             android:label="Live Marts"
-            android:parentActivityName=".BuyingActivity"/>
-        <activity android:name=".ChatActivity"
-            android:label="Send a message"
-            android:parentActivityName=".BuyingActivity"/>
-        <activity android:name=".ViewStatsActivity"
-            android:parentActivityName=".PlaceAd"/>
-        <activity android:name=".LikedAdsActivity"
+            android:parentActivityName=".BuyingActivity" />
+        <activity
+            android:name=".ViewStatsActivity"
+            android:parentActivityName=".PlaceAd" />
+        <activity
+            android:name=".LikedAdsActivity"
             android:label="Liked Ads"
-            android:parentActivityName=".ManageMyAccount"/>
-        <activity android:name=".SoldAdsActivity"
+            android:parentActivityName=".ManageMyAccount" />
+        <activity
+            android:name=".SoldAdsActivity"
             android:label="Sold Ads"
-            android:parentActivityName=".ManageMyAccount"/>
-        <activity android:name=".ManageMyAccount"
+            android:parentActivityName=".ManageMyAccount" />
+        <activity
+            android:name=".ManageMyAccount"
             android:label="Manage My Account"
-            android:parentActivityName=".BuyingActivity"/>
-        <activity android:name=".UpdateAd"
+            android:parentActivityName=".BuyingActivity" />
+        <activity
+            android:name=".UpdateAd"
             android:label="Update Ad"
-            android:parentActivityName=".ManageMyAccount"/>
-        <activity android:name=".PlaceAd"
+            android:parentActivityName=".ManageMyAccount" />
+        <activity
+            android:name=".PlaceAd"
             android:label="Place Ad"
-            android:parentActivityName=".BuyingActivity"/>
-        <activity android:name=".SoldActivity"
+            android:parentActivityName=".BuyingActivity" />
+        <activity
+            android:name=".SoldActivity"
             android:label="Mark As Sold"
-            android:parentActivityName=".ViewAdsActivity"/>
+            android:parentActivityName=".ViewAdsActivity" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:parentActivityName=".PlaceAd"/>
-        <activity android:name=".ViewAdsActivity"
+            android:parentActivityName=".PlaceAd" />
+        <activity
+            android:name=".ViewAdsActivity"
             android:label="Active Ads"
-            android:parentActivityName=".ManageMyAccount"/>
-        <activity android:name=".UpdateProfileActivity"
+            android:parentActivityName=".ManageMyAccount" />
+        <activity
+            android:name=".UpdateProfileActivity"
             android:label="Update Profile"
-            android:parentActivityName=".ManageMyAccount"/>
-        <activity android:name=".ViewReportActivity"
+            android:parentActivityName=".ManageMyAccount" />
+        <activity
+            android:name=".ViewReportActivity"
             android:label="Mart Reports"
-            android:parentActivityName=".BuyingActivity"/>
-        <activity android:name=".BuyingActivity"
-            android:label="MartStock"/>
-        <activity android:name=".LoginActivity"
-            android:label="Login"/>
-        <activity android:name=".MainActivity"
+            android:parentActivityName=".BuyingActivity" />
+        <activity
+            android:name=".BuyingActivity"
+            android:label="MartStock" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="Login" />
+        <activity
+            android:name=".MainActivity"
             android:label="MartStock">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -94,6 +112,5 @@
             android:stateNotNeeded="true"
             android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
-
 
 </manifest>

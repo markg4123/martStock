@@ -94,6 +94,9 @@ public class QRCode extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(image.getDrawable()==null){
+                    Toast.makeText(QRCode.this, "You must create a code first!", Toast.LENGTH_SHORT).show();
+                }else
              doPhotoPrint();
             }
         });

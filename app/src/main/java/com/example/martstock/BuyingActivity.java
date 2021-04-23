@@ -32,7 +32,7 @@ import java.util.Collections;
 public class BuyingActivity extends AppCompatActivity {
 
 
-    DatabaseReference userRef;
+    DatabaseReference userRef, messageRef;
     RecyclerView rcv;
     RecyclerView.Adapter adapter;
     ArrayList<Ad> ads = new ArrayList<Ad>();
@@ -196,6 +196,28 @@ public class BuyingActivity extends AppCompatActivity {
 
     }
 
+    public void checkMessages(){
+        messageRef =  FirebaseDatabase.getInstance().getReference("Chat");
+
+        messageRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot s : snapshot.getChildren()) {
+
+                    ChatMessage chatMessage = s.getValue(ChatMessage.class);
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -223,11 +245,6 @@ public class BuyingActivity extends AppCompatActivity {
                 Intent v = new Intent(BuyingActivity.this, LiveMartsActivity.class);
                 startActivity(v);
                 return true;
-            case R.id.item7:
-                Intent vi = new Intent(BuyingActivity.this, MessagesActivity.class);
-                startActivity(vi);
-                return true;
-
 
         }
         return super.onOptionsItemSelected(item);

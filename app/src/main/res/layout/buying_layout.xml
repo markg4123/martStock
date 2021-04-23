@@ -173,11 +173,10 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/messageUserButton"
+            android:id="@+id/commentButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FF43A047"
-            android:text="Message this user" />
+            android:background="#FF43A047" />
 
 
     </LinearLayout>

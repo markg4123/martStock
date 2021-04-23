@@ -65,15 +65,15 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="326dp"
-        android:layout_height="296dp"
+        android:layout_width="312dp"
+        android:layout_height="233dp"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.664" />
+        app:layout_constraintVertical_bias="0.574" />
 
     <Button
         android:id="@+id/button"

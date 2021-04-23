@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
     private ArrayList<Ad> ads;
     Uri myUri;
-    String uri;
+    String uri, userId;
     String title,age,breed,desc,date, mart, id,key;
     int price;
     ArrayList<LikedAds> likedAds = new ArrayList<LikedAds>();
@@ -84,16 +84,26 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
 
         Picasso.get().load(myUri).into(holder.image);
 
-        holder.messageUserButton.setOnClickListener(new View.OnClickListener() {
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getCurrentUser().getUid();
+
+        if(userId.equals(ad.getId())){
+            holder.commentButton.setText("View Comments");
+        }else{
+            holder.commentButton.setText("Post Comment");
+        }
+
+        holder.commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Ad ad = ads.get(position);
 
                 String rec = ad.getId();
 
-                Intent i = new Intent(v.getContext(), ChatActivity.class);
+                Intent i = new Intent(v.getContext(), CommentActivity.class);
                 i.putExtra("id", rec);
                 i.putExtra("adId", ad.getKey());
+                i.putExtra("title", ad.getAdTitle());
                 v.getContext().startActivity(i);
             }
         });
@@ -160,7 +170,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView adTitleText, priceText, martText, breedText, ageText, descText;
         public ImageView image;
-        public Button likesText,messageUserButton;
+        public Button likesText,commentButton;
 
 
         public ViewHolder(@NonNull final View itemView) {
@@ -174,7 +184,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  {
             descText = (TextView) itemView.findViewById(R.id.descText);
             image = (ImageView) itemView.findViewById(R.id.image);
             likesText = (Button) itemView.findViewById(R.id.likesText);
-            messageUserButton = (Button) itemView.findViewById(R.id.messageUserButton);
+            commentButton = (Button) itemView.findViewById(R.id.commentButton);
 
 
         }
