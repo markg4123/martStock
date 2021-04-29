@@ -46,6 +46,7 @@ public class ViewAdsActivity extends AppCompatActivity {
 
         adapter = new MyAdsAdapter(ads);
 
+        //view all logged in users ads
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

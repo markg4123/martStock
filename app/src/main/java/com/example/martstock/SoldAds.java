@@ -1,7 +1,5 @@
 package com.example.martstock;
 
-import java.util.ArrayList;
-
 public class SoldAds {
     String title,date,mart,id;
     int numSold, price, askingPrice;

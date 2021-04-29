@@ -140,6 +140,7 @@ public class PlaceAd extends AppCompatActivity {
             }
         });
 
+        //add an ad to database
         placeAdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,6 +203,8 @@ public class PlaceAd extends AppCompatActivity {
 
 
         });
+
+        //map activity to select a mart location
         martText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -71,6 +71,7 @@ public class CommentActivity extends AppCompatActivity {
 
         userRef = FirebaseDatabase.getInstance().getReference("User");
 
+        //get current users name
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -93,6 +94,8 @@ public class CommentActivity extends AppCompatActivity {
         });
         reference = FirebaseDatabase.getInstance().getReference("Comment").push();
         reference1 = FirebaseDatabase.getInstance().getReference("Comment");
+
+        //add a comment to database
         commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +130,8 @@ public class CommentActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //show all comments for an ad
 
         reference1.addValueEventListener(new ValueEventListener() {
             @Override

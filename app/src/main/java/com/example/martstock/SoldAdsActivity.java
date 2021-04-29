@@ -45,6 +45,7 @@ public class SoldAdsActivity extends AppCompatActivity {
 
         ref =  FirebaseDatabase.getInstance().getReference("OldAds");
 
+        //view all old ads
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

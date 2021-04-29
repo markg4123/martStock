@@ -39,7 +39,6 @@ public class QRCode extends AppCompatActivity {
     Button button, saveButton;
     ImageView image;
 
-    OutputStream outputStream;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -32,7 +32,7 @@ import java.util.Collections;
 public class BuyingActivity extends AppCompatActivity {
 
 
-    DatabaseReference userRef, messageRef;
+    DatabaseReference userRef;
     RecyclerView rcv;
     RecyclerView.Adapter adapter;
     ArrayList<Ad> ads = new ArrayList<Ad>();
@@ -40,7 +40,7 @@ public class BuyingActivity extends AppCompatActivity {
     Spinner filterSpinner;
     Button filterButton;
     String result;
-
+    boolean found;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,52 +73,56 @@ public class BuyingActivity extends AppCompatActivity {
         filterSpinner.setAdapter(new ArrayAdapter<>(BuyingActivity.this, android.R.layout
                 .simple_spinner_dropdown_item, martList));
 
+        //filter results for specific mart
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result = filterSpinner.getSelectedItem().toString();
-                userRef =  FirebaseDatabase.getInstance().getReference("Ad");
-                ads.clear();
-                userRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (final DataSnapshot s : snapshot.getChildren()) {
-                            final Ad a = s.getValue(Ad.class);
+                    found=false;
+                    result = filterSpinner.getSelectedItem().toString();
+                    userRef = FirebaseDatabase.getInstance().getReference("Ad");
+                    ads.clear();
+                    userRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (final DataSnapshot s : snapshot.getChildren()) {
+                                final Ad a = s.getValue(Ad.class);
 
-                            if (result.equals(a.getMart())) {
-                                ads.add(a);
+                                if (result.equals(a.getMart())) {
+                                    found = true;
+                                    ads.add(a);
 
-                                Collections.reverse(ads);
-                                adapter = new MyAdapter(ads);
-                                rcv.setAdapter(adapter);
-                                adapter.notifyItemInserted(ads.size() - 1);
+                                    Collections.reverse(ads);
+                                    adapter = new MyAdapter(ads);
+                                    rcv.setAdapter(adapter);
+                                    adapter.notifyItemInserted(ads.size() - 1);
+                                }
+                                else if (result.equals("All")) {
+                                    found = true;
+                                    ads.add(a);
+
+                                    Collections.reverse(ads);
+                                    adapter = new MyAdapter(ads);
+                                    rcv.setAdapter(adapter);
+                                    adapter.notifyItemInserted(ads.size() - 1);
+                                }
+
                             }
-                            else if (result.equals("All")) {
-                                ads.add(a);
-
-                                Collections.reverse(ads);
-                                adapter = new MyAdapter(ads);
-                                rcv.setAdapter(adapter);
-                                adapter.notifyItemInserted(ads.size() - 1);
-                            }
-
+                            if(!found)
+                            Toast.makeText(BuyingActivity.this, "There are no ads in " + result, Toast.LENGTH_SHORT).show();
 
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(BuyingActivity.this, "Error", Toast.LENGTH_LONG).show();
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(BuyingActivity.this, "Error", Toast.LENGTH_LONG).show();
+                        }
+                    });
 
             }
         });
 
-
         userRef =  FirebaseDatabase.getInstance().getReference("Ad");
-
-
+        //Show all ads
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -144,10 +148,7 @@ public class BuyingActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
-
 
 
     private void scanCode() {
@@ -194,28 +195,6 @@ public class BuyingActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu2, menu);
         return true;
 
-    }
-
-    public void checkMessages(){
-        messageRef =  FirebaseDatabase.getInstance().getReference("Chat");
-
-        messageRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot s : snapshot.getChildren()) {
-
-                    ChatMessage chatMessage = s.getValue(ChatMessage.class);
-
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
 

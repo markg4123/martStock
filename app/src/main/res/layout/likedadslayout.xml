@@ -44,6 +44,7 @@
                 android:layout_weight="1"
                 android:background="#56FFFFFF"
                 android:text="Title"
+                android:layout_marginTop="4dp"
                 android:textStyle="bold"
                 android:textSize="18dp"
                 android:layout_marginStart="4dp"
@@ -64,7 +65,9 @@
                 android:layout_weight="1"
                 android:background="#56FFFFFF"
                 android:text="Mart"
-                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold"
+                android:layout_marginStart="4dp"
                 android:textColor="#050505"
                 android:layout_marginLeft="8dp" />
         </LinearLayout>
@@ -80,9 +83,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_weight="1"
+                android:layout_marginTop="4dp"
                 android:background="#56FFFFFF"
                 android:text="Breed"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:textColor="#050505"
                 android:layout_marginLeft="8dp" />
 
@@ -99,9 +103,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_weight="1"
+                android:layout_marginTop="4dp"
                 android:background="#56FFFFFF"
                 android:text="Age"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:textColor="#050505"
                 android:layout_marginLeft="8dp" />
 
@@ -121,7 +126,8 @@
                 android:layout_weight="1"
                 android:background="#56FFFFFF"
                 android:text="Description"
-                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
                 android:textColor="#050505"
                 android:layout_marginLeft="8dp" />
 
@@ -139,11 +145,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_weight="1"
+                android:layout_marginTop="4dp"
                 android:background="#56FFFFFF"
                 android:text="Price"
                 android:textStyle="bold"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="4dp"
                 android:textColor="#050505"
                 android:layout_marginLeft="8dp" />
 
@@ -158,9 +164,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="4dp"
+
                 android:layout_weight="1"
                 android:background="#56FFFFFF"
                 android:text="..."
@@ -177,11 +184,9 @@
                 android:id="@+id/removeButton"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="#FF43A047"
+                android:layout_marginTop="4dp"
                 android:text="Remove From Liked Ads"
                 android:textColor="#050505"
                 android:textStyle="bold" />

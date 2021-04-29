@@ -153,6 +153,8 @@ public class UpdateAd extends AppCompatActivity {
             }
         });
 
+
+        //update an ad
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

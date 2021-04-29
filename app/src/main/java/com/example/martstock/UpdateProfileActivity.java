@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,7 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class UpdateProfileActivity extends AppCompatActivity {
-    EditText updateNameText, updateUsernameText, updatePasswordText, updateEmailText;
+    EditText updateNameText, updateUsernameText;
+    TextView updatePasswordText,updateEmailText;
     Button updateButton2;
 
     DatabaseReference userRef;
@@ -65,6 +67,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
             }
         });
+
+        //update profile
         updateButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +84,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
                 fireDB.child("name").setValue(name);
                 fireDB.child("username").setValue(uname);
+
 
                 Toast.makeText(UpdateProfileActivity.this, "User profiler updated!", Toast.LENGTH_LONG).show();
             }

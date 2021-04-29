@@ -36,6 +36,7 @@ public class SummaryActivity extends AppCompatActivity {
         new cattleReport().execute();
     }
 
+    //scrape data for cattle prices in factories
     public class cattleReport extends AsyncTask<Void, Void, Void> {
 
         @Override

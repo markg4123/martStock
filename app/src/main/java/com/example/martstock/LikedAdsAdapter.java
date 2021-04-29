@@ -68,20 +68,23 @@ public class LikedAdsAdapter extends RecyclerView.Adapter<LikedAdsAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final LikedAds likedAd = likedAds.get(position);
 
-        holder.likedadTitleText.setText(likedAd.getAdTitle() + "\n");
-        holder.likedpriceText.setText("Price \n €" + likedAd.getPrice() + "\n");
-        holder.likedmartText.setText(likedAd.getMart() + " " + likedAd.getDate() + "\n");
-        holder.likedbreedText.setText("Breed: " + likedAd.getBreed() + "\n");
-        holder.likedageText.setText("Age: " + likedAd.getAge() + "\n");
-        holder.likeddescText.setText(likedAd.getDescription() + "\n");
+        holder.likedadTitleText.setText(likedAd.getAdTitle());
+        holder.likedpriceText.setText("Price \n €" + likedAd.getPrice());
+        holder.likedmartText.setText(likedAd.getMart() + " " + likedAd.getDate());
+        holder.likedbreedText.setText("Breed: " + likedAd.getBreed());
+        holder.likedageText.setText("Age: " + likedAd.getAge());
+        holder.likeddescText.setText(likedAd.getDescription());
 
         uri = likedAd.getUrl();
         myUri = Uri.parse(uri);
 
+
+        //remove an ad from liked ads
         holder.removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 final LikedAds likedAd = likedAds.get(position);
+                likedAds.clear();
                 fireDB = FirebaseDatabase.getInstance().getReference("LikedAd");
                 fireDB.addValueEventListener(new ValueEventListener() {
                     @Override

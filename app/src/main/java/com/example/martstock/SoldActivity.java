@@ -78,6 +78,7 @@ public class SoldActivity extends AppCompatActivity {
             }
         });
 
+        //mark an ad as sold
         soldButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
